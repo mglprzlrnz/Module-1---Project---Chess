@@ -1,0 +1,19 @@
+
+#chess-board {
+  height: 640px;
+  width: 640px;
+  padding: 20px;
+  background-color: grey;
+}
+
+.cell {
+  height: 80px;
+  float: left;
+  width: 80px;
+}
+.white{
+  background-color: white;
+}
+.black {
+  background-color: black;
+}
