@@ -17,3 +17,11 @@
 .black {
   background-color: black;
 }
+#piece-container{
+  position:absolute;
+}
+.piece {
+  float: left;
+  width: 80px;
+  height: 80px;
+}
