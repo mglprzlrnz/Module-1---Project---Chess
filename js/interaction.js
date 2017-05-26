@@ -1,2 +1,7 @@
+
+
+
 var game = new Chess();
-game._renderBoard();
+
+// game._renderPieces ();
+// game._renderBoard();
