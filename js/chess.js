@@ -86,7 +86,13 @@ Chess.prototype._renderPieces = function(){
     pieceRender.classList  = "piece";
     pieceRender.classList += " tile-position-" + piece.positionX + "-" + piece.positionY;
     pieceRender.setAttribute('src', piece.image);
+    pieceRender.setAttribute('id', key);
     pieceContainer.appendChild(pieceRender);
     this.board[piece.positionX][piece.positionY] = piece;
   }
+};
+
+Chess.prototype._clickListeners = function (imgPiece) {
+  console.log(imgPiece.id);
+  // this.allPieces[imgPiece.id]._possiblePositions();
 };
