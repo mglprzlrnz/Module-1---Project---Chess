@@ -101,17 +101,21 @@ var allPieces = [
   pawnw8];
 
 Chess.prototype._renderPieces = function(){
-  for (i = 0 ; i <= allPieces.length; i++) {
-  var pieceContainer = document.getElementById("piece-container");
-  var pieceRender = document.createElement("img");
+  var removeImg = document.getElementById('piece-container');
+  while (removeImg.firstChild) {
+    removeImg.removeChild(removeImg.firstChild);
+    }
+  for (i = 0 ; i < allPieces.length; i++) {
+    var pieceContainer = document.getElementById("piece-container");
+    var pieceRender = document.createElement("img");
 
-  pieceRender.classList  = "piece";
-  pieceRender.classList += " tile-position-" + allPieces[i].positionX + "-" + allPieces[i].positionY;
-  pieceRender.setAttribute('src', allPieces[i].image);
+    pieceRender.classList  = "piece";
+    pieceRender.classList += " tile-position-" + allPieces[i].positionX + "-" + allPieces[i].positionY;
+    pieceRender.setAttribute('src', allPieces[i].image);
 
 
-  pieceContainer.appendChild(pieceRender);
-  this.board [allPieces[i].positionX][allPieces[i].positionY] = allPieces[i];
+    pieceContainer.appendChild(pieceRender);
+    this.board [allPieces[i].positionX][allPieces[i].positionY] = allPieces[i];
   }
 
 };

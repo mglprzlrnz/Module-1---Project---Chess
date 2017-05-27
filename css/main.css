@@ -4,6 +4,7 @@
   width: 640px;
   padding: 20px;
   background-color: grey;
+  position: fixed;
 }
 
 .cell {
@@ -23,7 +24,6 @@
   width: 640px;
 }
 .piece {
-
   width: 80px;
   height: 80px;
   position: fixed;
@@ -51,7 +51,7 @@
 .tile-position-2-1 { transform: translate(80px, 160px); }
 .tile-position-2-2 { transform: translate(160px, 160px); }
 .tile-position-2-3 { transform: translate(240px, 160px); }
-.tile-position-2-4 { transform: translate(320, 160px); }
+.tile-position-2-4 { transform: translate(320px, 160px); }
 .tile-position-2-5 { transform: translate(400px, 160px); }
 .tile-position-2-6 { transform: translate(480px, 160px); }
 .tile-position-2-7 { transform: translate(560px, 160px); }
@@ -60,7 +60,7 @@
 .tile-position-3-1 { transform: translate(80px, 240px); }
 .tile-position-3-2 { transform: translate(160px, 240px); }
 .tile-position-3-3 { transform: translate(240px, 240px); }
-.tile-position-3-4 { transform: translate(320, 240px); }
+.tile-position-3-4 { transform: translate(320px, 240px); }
 .tile-position-3-5 { transform: translate(400px, 240px); }
 .tile-position-3-6 { transform: translate(480px, 240px); }
 .tile-position-3-7 { transform: translate(560px, 240px); }
@@ -78,7 +78,7 @@
 .tile-position-5-1 { transform: translate(80px, 400px); }
 .tile-position-5-2 { transform: translate(160px, 400px); }
 .tile-position-5-3 { transform: translate(240px, 400px); }
-.tile-position-5-4 { transform: translate(320, 400px); }
+.tile-position-5-4 { transform: translate(320px, 400px); }
 .tile-position-5-5 { transform: translate(400px, 400px); }
 .tile-position-5-6 { transform: translate(480px, 400px); }
 .tile-position-5-7 { transform: translate(560px, 400px); }
