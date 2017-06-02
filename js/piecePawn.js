@@ -1,4 +1,4 @@
-function Pawn (color, positionX, positionY, image, alive) {
+function Pawn (color, positionX, positionY, image, board) {
     Piece.call(this, color, positionX, positionY, image);
 }
 
@@ -11,11 +11,11 @@ Pawn.prototype = Object.create(Piece.prototype);
 //     }
 //   }
 // };
+
 Pawn.prototype._possiblePositions = function () {
-  var possiblePositions = [];
-  if (this.color === "white") {
-    this.positionX = this.positionX - 1;
-  }
-  possiblePositions.push([this.positionX,this.positionY]);
-  return possiblePositions;
+  var step = this.color === "white" ? -1 : 1;
+  var possiblePositions = [[this.positionX + step, this.positionY],[this.positionX + step,
+                      this.positionY + 1],[this.positionX + step, this.positionY - 1]];
+  var resultPossiblePositions = this._removeOutsidePositions(possiblePositions);
+  return resultPossiblePositions;
 };
