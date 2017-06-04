@@ -1,5 +1,6 @@
 function Chess() {
   this.board = this._resetBoard();
+  this.currentPiece = undefined;
 
   // this.turn; // = Player.color (the turns change with the player's color)
   this.check  = false;
@@ -66,12 +67,12 @@ Chess.prototype._resetBoard = function() {
 // };
 
 
-Chess.prototype._renderBoard = function () {
+Chess.prototype.renderBoard = function () {
   this.board.forEach(function(row){ console.log(row); });
 };
 
 
-Chess.prototype._renderPieces = function(){
+Chess.prototype.renderPieces = function(){
   this._resetBoard();
 
   var removeImg = document.getElementById('piece-container');
@@ -105,6 +106,7 @@ Chess.prototype._renderPieces = function(){
 // };
 
 Chess.prototype._clickListeners = function (imgPiece) {
+  this.currentPiece = imgPiece;
   $('.blue').remove();
   var positions = this.allPieces[imgPiece.id]._possiblePositions();
   for (var j = 0; j < positions.length; j++) {
@@ -115,13 +117,15 @@ Chess.prototype._clickListeners = function (imgPiece) {
     positionRender.classList += " blue";
     pieceContainer.appendChild(positionRender);
   }
-  Chess.prototype._movementListeners = function (movement) {
-    $('.blue').remove();
-    var move = movement;
-    this.board[this.allPieces[imgPiece.id].positionX][this.allPieces[imgPiece.id].positionY] = null;
-    this.allPieces[imgPiece.id].positionX = move.classList[0].charAt(14);
-    this.allPieces[imgPiece.id].positionY = move.classList[0].charAt(16);
-    this._renderPieces ();
-    this._renderBoard ();
-  };
+};
+
+Chess.prototype._movementListeners = function (movement) {
+  var imgPiece = this.currentPiece;
+  $('.blue').remove();
+  var move = movement;
+  this.board[this.allPieces[imgPiece.id].positionX][this.allPieces[imgPiece.id].positionY] = null;
+  this.allPieces[imgPiece.id].positionX = parseInt(move.classList[0].charAt(14));
+  this.allPieces[imgPiece.id].positionY = parseInt(move.classList[0].charAt(16));
+  this.renderPieces ();
+  this.renderBoard ();
 };

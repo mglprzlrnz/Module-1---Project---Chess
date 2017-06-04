@@ -3,8 +3,8 @@ var game ;
 window.onload = function () {
 
   game = new Chess();
-  game._renderPieces();
-  game._renderBoard();
+  game.renderPieces();
+  game.renderBoard();
 
 
 //   var clickPiece = document.getElementsByClassName("piece");
@@ -25,6 +25,7 @@ $(document).ready(function() {
 $(document).on("click", ".piece", function(){
   game._clickListeners(this);
 });
+
 $(document).on("click", ".blue", function(){
   game._movementListeners(this);
 });

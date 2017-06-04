@@ -2,13 +2,12 @@ function Piece(color, positionX, positionY, image, board) {
   this.color = color;
   this.positionX = positionX;
   this.positionY = positionY;
-  this.alive = true;
   if (color === "white") {
     this.image = "img/" + image + 'w.png';
   } else {
     this.image = "img/" + image + 'b.png';
   }
-
+  this.board = board;
 }
 
 Piece.prototype._removeOutsidePositions = function(possiblePositions) {
