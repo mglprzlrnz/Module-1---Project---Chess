@@ -9,15 +9,15 @@ function Piece(color, positionX, positionY, image, board) {
   }
   this.board = board;
 }
-
-Piece.prototype._removeOutsidePositions = function(possiblePositions) {
-  var result = [];
-  for (i = 0; i < possiblePositions.length ; i++) {
-    var possiblePosition = possiblePositions[i];
-    if (possiblePosition[0] >= 0 && possiblePosition[0] <= 7 &&
-        possiblePosition[1] >= 0 && possiblePosition[1] <= 7) {
-          result.push(possiblePosition);
-      }
-    }
-  return result;
-};
+//
+// Piece.prototype._removeOutsidePositions = function(possiblePositions) {
+//   var result = [];
+//   for (i = 0; i < possiblePositions.length ; i++) {
+//     var possiblePosition = possiblePositions[i];
+//     if (possiblePosition[0] >= 0 && possiblePosition[0] <= 7 &&
+//         possiblePosition[1] >= 0 && possiblePosition[1] <= 7) {
+//           result.push(possiblePosition);
+//       }
+//     }
+//   return result;
+// };

@@ -6,43 +6,53 @@ Knight.prototype = Object.create(Piece.prototype);
 
 Knight.prototype._possiblePositions = function () {
   var resultPossiblePositions = [];
-  var i = 1;
-  while ((this.positionX - i) >= 0 && this.board[this.positionX - i][this.positionY] === null) {
-    resultPossiblePositions.push([this.positionX - i, this.positionY]);
-    i++;
+  if ((this.positionX + 2) <= 7 && (this.positionY + 1) <= 7) {
+      if (this.board[this.positionX + 2][this.positionY + 1] === null ||
+    this.board[this.positionX + 2][this.positionY + 1].color !== this.color) {
+    resultPossiblePositions.push([this.positionX + 2, this.positionY + 1]);
+    }
   }
-  if ((this.positionX - i) >= 0 && this.board[this.positionX - i][this.positionY] !== null &&
-    this.board[this.positionX - i][this.positionY].color !== this.color){
-    resultPossiblePositions.push([this.positionX - i, this.positionY]);
+  if ((this.positionX + 2) <= 7 && (this.positionY - 1) >= 0) {
+      if (this.board[this.positionX + 2][this.positionY - 1] === null ||
+    this.board[this.positionX + 2][this.positionY - 1].color !== this.color) {
+    resultPossiblePositions.push([this.positionX + 2, this.positionY - 1]);
+    }
   }
-  i = 1;
-  while ((this.positionY + i) <= 7 && this.board[this.positionX][this.positionY + i] === null) {
-    resultPossiblePositions.push([this.positionX, this.positionY + i]);
-    i++;
+  if ((this.positionX - 2) >= 0 && (this.positionY + 1) <= 7) {
+      if (this.board[this.positionX - 2][this.positionY + 1] === null ||
+    this.board[this.positionX - 2][this.positionY + 1].color !== this.color) {
+    resultPossiblePositions.push([this.positionX - 2, this.positionY + 1]);
+    }
   }
-  if ((this.positionY + i) <= 7 && this.board[this.positionX][this.positionY + i] !== null &&
-    this.board[this.positionX][this.positionY + i].color !== this.color){
-    resultPossiblePositions.push([this.positionX, this.positionY + i]);
+  if ((this.positionX - 2) >= 0 && (this.positionY - 1) >= 0) {
+      if (this.board[this.positionX - 2][this.positionY - 1] === null ||
+    this.board[this.positionX - 2][this.positionY - 1].color !== this.color) {
+    resultPossiblePositions.push([this.positionX - 2, this.positionY - 1]);
+    }
   }
-
-  i = 1;
-  while ((this.positionY - i) >= 0 && this.board[this.positionX][this.positionY - i] === null) {
-    resultPossiblePositions.push([this.positionX, this.positionY - i]);
-    i++;
+  if ((this.positionX + 1) <= 7 && (this.positionY + 2) <= 7) {
+      if (this.board[this.positionX + 1][this.positionY + 2] === null ||
+    this.board[this.positionX + 1][this.positionY + 2].color !== this.color) {
+    resultPossiblePositions.push([this.positionX + 1, this.positionY + 2]);
+    }
   }
-  if ((this.positionY - i) >= 0 && this.board[this.positionX][this.positionY - i] !== null &&
-    this.board[this.positionX][this.positionY - i].color !== this.color){
-    resultPossiblePositions.push([this.positionX, this.positionY - i]);
+  if ((this.positionX - 1) >= 0 && (this.positionY + 2) <= 7) {
+      if (this.board[this.positionX - 1][this.positionY + 2] === null ||
+    this.board[this.positionX - 1][this.positionY + 2].color !== this.color) {
+    resultPossiblePositions.push([this.positionX - 1, this.positionY + 2]);
+    }
   }
-  i = 1;
-  while ((this.positionX + i) <= 7 && this.board[this.positionX + i][this.positionY] === null) {
-    resultPossiblePositions.push([this.positionX + i, this.positionY]);
-    i++;
+  if ((this.positionX + 1) <= 7 && (this.positionY - 2) >= 0) {
+      if (this.board[this.positionX + 1][this.positionY - 2] === null ||
+    this.board[this.positionX + 1][this.positionY - 2].color !== this.color) {
+    resultPossiblePositions.push([this.positionX + 1, this.positionY - 2]);
+    }
   }
-  if ((this.positionX + i) <= 7 && this.board[this.positionX + i][this.positionY] !== null &&
-      this.board[this.positionX + i][this.positionY].color !== this.color){
-      resultPossiblePositions.push([this.positionX + i, this.positionY]);
+  if ((this.positionX - 1) >= 0 && (this.positionY - 2) >= 0) {
+      if (this.board[this.positionX - 1][this.positionY - 2] === null ||
+    this.board[this.positionX - 1][this.positionY - 2].color !== this.color) {
+    resultPossiblePositions.push([this.positionX - 1, this.positionY - 2]);
+    }
   }
-
   return resultPossiblePositions;
 };

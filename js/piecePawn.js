@@ -12,17 +12,17 @@ Pawn.prototype = Object.create(Piece.prototype);
 //   }
 // };
 
-Pawn.prototype._possiblePositions = function () {
-  var step = this.color === "white" ? -1 : 1;
-  var possiblePositions = [[this.positionX + step, this.positionY],[this.positionX + step,
-                      this.positionY + 1],[this.positionX + step, this.positionY - 1]];
-  if (this.color === "white" && this.positionX === 6 || this.color === "black" && this.positionX === 1){
-    possiblePositions.push([this.positionX + step + step, this.positionY]);
-  }
-  var resultPossiblePositions = this._removeOutsidePositions(possiblePositions);
-  // resultPossiblePositions = this._removeOtherPositions(resultPossiblePositions);
-  return resultPossiblePositions;
-};
+// Pawn.prototype._possiblePositions = function () {
+//   var step = this.color === "white" ? -1 : 1;
+//   var possiblePositions = [[this.positionX + step, this.positionY],[this.positionX + step,
+//                       this.positionY + 1],[this.positionX + step, this.positionY - 1]];
+//   if (this.color === "white" && this.positionX === 6 || this.color === "black" && this.positionX === 1){
+//     possiblePositions.push([this.positionX + step + step, this.positionY]);
+//   }
+//   var resultPossiblePositions = this._removeOutsidePositions(possiblePositions);
+//   resultPossiblePositions = this._removeOtherPositions(resultPossiblePositions);
+//   return resultPossiblePositions;
+// };
 // mirar porque no pfunciona la funcion de abajo
 // Pawn.prototype._removeOtherPositions = function (resultPossiblePositions){
 //   var length = resultPossiblePositions.length - 1;
@@ -36,3 +36,32 @@ Pawn.prototype._possiblePositions = function () {
 //   return resultPossiblePositions;
 //
 // };
+
+Pawn.prototype._possiblePositions = function () {
+  var resultPossiblePositions = [];
+  var step = this.color === "white" ? -1 : 1;
+  if (this.color === "white" && this.positionX === 6 || this.color === "black" && this.positionX === 1){
+    if (this.board[this.positionX + 2*step][this.positionY] === null &&
+      this.board[this.positionX + step][this.positionY] === null ) {
+      resultPossiblePositions.push([this.positionX + 2*step, this.positionY]);
+    }
+  }
+  if (0 <= (this.positionX + step) <= 7) {
+      if (this.board[this.positionX + step][this.positionY] === null) {
+    resultPossiblePositions.push([this.positionX + step, this.positionY]);
+    }
+  }
+  if (0 <= (this.positionX + step) <= 7 && (this.positionY + 1) <= 7) {
+      if (this.board[this.positionX + step][this.positionY + 1] !== null &&
+      this.board[this.positionX + step][this.positionY + 1].color !== this.color) {
+    resultPossiblePositions.push([this.positionX + step, this.positionY + 1]);
+    }
+  }
+  if (0 <= (this.positionX + step) <= 7 && (this.positionY - 1) >= 0) {
+      if (this.board[this.positionX + step][this.positionY - 1] !== null &&
+      this.board[this.positionX + step][this.positionY - 1].color !== this.color) {
+    resultPossiblePositions.push([this.positionX + step, this.positionY - 1]);
+    }
+  }
+  return resultPossiblePositions;
+};

@@ -46,6 +46,5 @@ Bishop.prototype._possiblePositions = function () {
     this.board[this.positionX + i][this.positionY +i].color !== this.color){
     resultPossiblePositions.push([this.positionX + i, this.positionY + i]);
   }
-
   return resultPossiblePositions;
 };

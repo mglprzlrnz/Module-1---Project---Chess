@@ -43,6 +43,5 @@ Rook.prototype._possiblePositions = function () {
       this.board[this.positionX + i][this.positionY].color !== this.color){
       resultPossiblePositions.push([this.positionX + i, this.positionY]);
   }
-
   return resultPossiblePositions;
 };
