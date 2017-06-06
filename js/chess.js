@@ -2,7 +2,7 @@ function Chess() {
   this.board = this._resetBoard();
   this.currentPiece = undefined;
 
-  this.turn; // = Player.color (the turns change with the player's color)
+  this.turn = "white"; 
   this.check  = false;
   this.checkMate = false;
   this.allPieces = {
@@ -74,6 +74,7 @@ Chess.prototype.renderPieces = function(){
       var pieceRender = document.createElement("img");
       pieceRender.classList  = "piece";
       pieceRender.classList += " tile-position-" + piece.positionX + "-" + piece.positionY;
+      pieceRender.classList += " " + piece.color;
       pieceRender.setAttribute('src', piece.image);
       pieceRender.setAttribute('id', key);
       pieceContainer.appendChild(pieceRender);
@@ -83,6 +84,9 @@ Chess.prototype.renderPieces = function(){
 };
 
 Chess.prototype._clickListeners = function (imgPiece) {
+  if (imgPiece.classList[2] !== this.turn) {
+    return;
+  }
   this.currentPiece = imgPiece;
   $('.blue').remove();
   var positions = this.allPieces[imgPiece.id]._possiblePositions();
@@ -112,4 +116,9 @@ Chess.prototype._movementListeners = function (movement) {
   }
   this.renderPieces ();
   this.renderBoard ();
+  if (this.turn === "white") {
+    this.turn = "black";
+  } else {
+    this.turn = "white";
+  }
 };
