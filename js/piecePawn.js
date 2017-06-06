@@ -1,5 +1,5 @@
-function Pawn (color, positionX, positionY, image, board) {
-    Piece.call(this, color, positionX, positionY, image, board);
+function Pawn (color, positionX, positionY, image, board, alive) {
+    Piece.call(this, color, positionX, positionY, image, board, alive);
 }
 
 Pawn.prototype = Object.create(Piece.prototype);

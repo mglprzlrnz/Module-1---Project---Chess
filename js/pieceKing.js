@@ -1,5 +1,5 @@
-function King (color, positionX, positionY, image, board) {
-    Piece.call(this, color, positionX, positionY, image, board);
+function King (color, positionX, positionY, image, board, alive) {
+    Piece.call(this, color, positionX, positionY, image, board, alive);
 }
 
 King.prototype = Object.create(Piece.prototype);

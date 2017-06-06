@@ -1,5 +1,5 @@
-function Knight (color, positionX, positionY, image, board) {
-    Piece.call(this, color, positionX, positionY, image, board);
+function Knight (color, positionX, positionY, image, board, alive) {
+    Piece.call(this, color, positionX, positionY, image, board, alive);
 }
 
 Knight.prototype = Object.create(Piece.prototype);

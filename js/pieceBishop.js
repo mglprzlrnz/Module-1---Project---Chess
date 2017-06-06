@@ -1,5 +1,5 @@
-function Bishop (color, positionX, positionY, image, board) {
-    Piece.call(this, color, positionX, positionY, image, board);
+function Bishop (color, positionX, positionY, image, board, alive) {
+    Piece.call(this, color, positionX, positionY, image, board, alive);
 }
 
 Bishop.prototype = Object.create(Piece.prototype);
@@ -23,7 +23,7 @@ Bishop.prototype._possiblePositions = function () {
     i++;
   }
   if ((this.positionX - i) >= 0 && (this.positionY + i) <= 7 && this.board[this.positionX - i][this.positionY + i] !== null &&
-    this.board[this.positionX - i][this.positionY + 1].color !== this.color){
+    this.board[this.positionX - i][this.positionY + i].color !== this.color){
     resultPossiblePositions.push([this.positionX - i, this.positionY + i]);
   }
   i = 1;

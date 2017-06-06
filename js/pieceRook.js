@@ -1,5 +1,5 @@
-function Rook (color, positionX, positionY, image, board) {
-    Piece.call(this, color, positionX, positionY, image, board);
+function Rook (color, positionX, positionY, image, board, alive) {
+    Piece.call(this, color, positionX, positionY, image, board, alive);
 }
 
 Rook.prototype = Object.create(Piece.prototype);

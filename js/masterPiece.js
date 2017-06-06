@@ -1,4 +1,4 @@
-function Piece(color, positionX, positionY, image, board) {
+function Piece(color, positionX, positionY, image, board, alive) {
   this.color = color;
   this.positionX = positionX;
   this.positionY = positionY;
@@ -8,7 +8,15 @@ function Piece(color, positionX, positionY, image, board) {
     this.image = "img/" + image + 'b.png';
   }
   this.board = board;
+  this.alive = true;
 }
+Piece.prototype.deadPiece = function(x,y) {
+  this.alive = false;
+};
+
+
+
+
 //
 // Piece.prototype._removeOutsidePositions = function(possiblePositions) {
 //   var result = [];

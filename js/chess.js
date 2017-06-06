@@ -2,7 +2,7 @@ function Chess() {
   this.board = this._resetBoard();
   this.currentPiece = undefined;
 
-  // this.turn; // = Player.color (the turns change with the player's color)
+  this.turn; // = Player.color (the turns change with the player's color)
   this.check  = false;
   this.checkMate = false;
   this.allPieces = {
@@ -55,22 +55,9 @@ Chess.prototype._resetBoard = function() {
   return board;
 };
 
-// Chess.prototype._getAvailablePosition = function () {
-//   var emptyTiles = [];
-//
-//   this.board.forEach(function(row, rowIndex){
-//     row.forEach(function(elem, colIndex){
-//       if (!elem) emptyTiles.push({ x: rowIndex, y: colIndex });
-//     });
-//   });
-//   return emptyTiles;
-// };
-
-
 Chess.prototype.renderBoard = function () {
   this.board.forEach(function(row){ console.log(row); });
 };
-
 
 Chess.prototype.renderPieces = function(){
   this._resetBoard();
@@ -81,29 +68,19 @@ Chess.prototype.renderPieces = function(){
   }
 
   for(var key in this.allPieces) {
-    var piece = this.allPieces[key];
-    var pieceContainer = document.getElementById("piece-container");
-    var pieceRender = document.createElement("img");
-    pieceRender.classList  = "piece";
-    pieceRender.classList += " tile-position-" + piece.positionX + "-" + piece.positionY;
-    pieceRender.setAttribute('src', piece.image);
-    pieceRender.setAttribute('id', key);
-    pieceContainer.appendChild(pieceRender);
-    this.board[piece.positionX][piece.positionY] = piece;
+    if (this.allPieces[key].alive === true) {
+      var piece = this.allPieces[key];
+      var pieceContainer = document.getElementById("piece-container");
+      var pieceRender = document.createElement("img");
+      pieceRender.classList  = "piece";
+      pieceRender.classList += " tile-position-" + piece.positionX + "-" + piece.positionY;
+      pieceRender.setAttribute('src', piece.image);
+      pieceRender.setAttribute('id', key);
+      pieceContainer.appendChild(pieceRender);
+      this.board[piece.positionX][piece.positionY] = piece;
+    }
   }
 };
-
-// Chess.prototype._clickListeners = function (imgPiece) {
-//   var removeHighlightPosition = document.getElementsByClassName("blue");
-//   for (var i = 0 ; 1 <= removeHighlightPosition.length; i++) {
-//     removeHighlightPosition[0].classList.remove("blue");
-//   }
-//   var positions = this.allPieces[imgPiece.id]._possiblePositions();
-//   for (var j = 0; j < positions.length; j++) {
-//     var highlightPositions = document.getElementById(positions[j].toString());
-//     highlightPositions.classList += " blue";
-//   }
-// };
 
 Chess.prototype._clickListeners = function (imgPiece) {
   this.currentPiece = imgPiece;
@@ -126,6 +103,13 @@ Chess.prototype._movementListeners = function (movement) {
   this.board[this.allPieces[imgPiece.id].positionX][this.allPieces[imgPiece.id].positionY] = null;
   this.allPieces[imgPiece.id].positionX = parseInt(move.classList[0].charAt(14));
   this.allPieces[imgPiece.id].positionY = parseInt(move.classList[0].charAt(16));
+  var targetX = parseInt(move.classList[0].charAt(14));
+  var targetY = parseInt(move.classList[0].charAt(16));
+  $('.' + move.classList[0]).remove();
+  var target = this.board[targetX][targetY];
+  if (target !== null){
+    target.deadPiece();
+  }
   this.renderPieces ();
   this.renderBoard ();
 };
