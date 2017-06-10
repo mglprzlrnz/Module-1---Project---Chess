@@ -254,6 +254,24 @@ Chess.prototype._Rotate = function () {
 };
 
 Chess.prototype._isCheckOnBoard = function (board, color) {
+  var otherColor = color === "white" ? "black" : "white";
+
+  for (i = 0; i < board.length; i++) {
+    for (j = 0; j < board[i].length; j++) {
+      var piece = board[i][j];
+      if (piece !== null && piece.color === otherColor) {
+          var positions = piece._possiblePositions ();
+          var king = this.allPieces['king' + color[0]];
+
+          for (var k = 0; k < positions.length; k++) {
+            if (board[positions[k][0]][positions[k][1]] === king) {
+              return true;
+            }
+          }
+      }
+    }
+  }
+
   return false;
 };
 
