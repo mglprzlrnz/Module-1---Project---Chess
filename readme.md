@@ -8,9 +8,9 @@ Before your movement you can select a different piece by clicking on it.
 
 Once you click on the destination position (one of the highlighted cells), the piece will move an take the opponent pieces if applicable.
 
+Alerts:
 "Check" - you will receive an alert if check happens
 "You cannot move here or you will lose!" - you will receive an alert if you try to move where the move is not permissioned.
+"check mate! Play Again?" - you will receive an alert if check mate happens and a pop up will ask you if your want to play again.
 
-At some point in the game, there will be a Check Mate but this function is not available. You will realize that there is no move permissioned and you will always receive an alert "You cannot move here or you will lose!". In this case you lost.
-
-When a King is taken you will receive an alert "Check Mate, Player //the color of the winner// Wins!"
+to play --> https://mglprzlrnz.github.io/Module-1---Project---Chess/
