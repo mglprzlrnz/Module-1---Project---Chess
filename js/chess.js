@@ -182,6 +182,11 @@ Chess.prototype._movementListeners = function (movement) {
   }
   this.allPieces[imgPiece.id].promoteIfNeeded();
   this._Rotate();
+  //this._CheckMate ();
+  if (this.checkMate === true) {
+    this._CheckMate (this.allPieces[imgPiece.id]);
+    his.checkMate = false;
+  }
 };
 
 Chess.prototype._Check = function () {
@@ -200,8 +205,15 @@ Chess.prototype._Check = function () {
       }
     for (var i = 0; i < positions.length; i++) {
       if (positions[i].toString() === kingPosition.toString()) {
-        var alertCheck = alert ("check");
-        // this.checkMate ();
+        if (this._checkMate()) {
+            if (confirm("check mate! Play Again?")) {
+              location.reload();
+            }
+        } else {
+          alert ("check");
+        }
+
+        //this.checkMate = true;
       }
     }
   }
@@ -241,24 +253,25 @@ Chess.prototype._Rotate = function () {
   });
 };
 
-// Chess.prototype._CheckMate = function () {
-//
-//    for(var key in this.allPieces) {
-//      var piece = this.allPieces[key];
-//      if (piece.color === this.turn || piece.positionX === null) {
-//        continue;}
-//        var positions = piece._possiblePositions ();
-//        var kingPosition = [];
-//        if (positions.length === 0) {continue;}
-//        if (this.turn === "white") {
-//            kingPosition = [this.allPieces.kingb.positionX, this.allPieces.kingb.positionY];
-//          } else {
-//            kingPosition = [this.allPieces.kingw.positionX, this.allPieces.kingw.positionY];
-//          }
-//        for (var i = 0; i < positions.length; i++) {
-//          piece._movementListeners (position[i]);
-//            var alertCheck = alert ("You cannot move here or you will lose!");
-//      }
-//    }
-//
-// };
+Chess.prototype._isCheckOnBoard = function (board, color) {
+  return false;
+};
+
+Chess.prototype._checkMate = function () {
+      var checkMate = true;
+
+      for(var key in this.allPieces) {
+        var piece = this.allPieces[key];
+
+        if(piece.color === this.turn && checkMate) {
+          for(var i = 0; i < piece._possiblePositions().length && checkMate; i++) {
+            var newBoard = this._copyOfThisBoard();
+            var position = piece._possiblePositions()[i];
+            newBoard[position[0]][position[1]] = piece;
+            newBoard[piece.positionX][piece.positionY] = null;
+            checkMate = this._isCheckOnBoard(newBoard, this.turn);
+          }
+        }
+      }
+      return checkMate;
+};
