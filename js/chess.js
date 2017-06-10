@@ -1,8 +1,8 @@
 function Chess() {
   this.board = this._resetBoard();
   this.currentPiece = undefined;
-
-  this.turn = "white"; 
+  this.previousBoard = undefined;
+  this.turn = "white";
   this.check  = false;
   this.checkMate = false;
   this.allPieces = {
@@ -60,8 +60,6 @@ Chess.prototype.renderBoard = function () {
 };
 
 Chess.prototype.renderPieces = function(){
-  this._resetBoard();
-
   var removeImg = document.getElementById('piece-container');
   while (removeImg.firstChild) {
     removeImg.removeChild(removeImg.firstChild);
@@ -100,10 +98,41 @@ Chess.prototype._clickListeners = function (imgPiece) {
   }
 };
 
+Chess.prototype._copyOfThisBoard = function () {
+  var newBoard = [];
+
+  for(var i = 0; i < this.board.length; i++) {
+    var newRow = [];
+    for (var j = 0; j < this.board[i].length; j++) {
+      newRow[j] = this.board[i][j];
+    }
+    newBoard[i] = newRow;
+  }
+
+  return newBoard;
+};
+
+Chess.prototype._copyOfThisPreviousBoard = function () {
+  var newBoard = [];
+
+  for(var i = 0; i < this.previousBoard.length; i++) {
+    var newRow = [];
+    for (var j = 0; j < this.previousBoard[i].length; j++) {
+      newRow[j] = this.previousBoard[i][j];
+    }
+    newBoard[i] = newRow;
+  }
+
+  return newBoard;
+};
+
 Chess.prototype._movementListeners = function (movement) {
+  this.previousBoard = this._copyOfThisBoard();
   var imgPiece = this.currentPiece;
   $('.blue').remove();
   var move = movement;
+  var a = this.allPieces[imgPiece.id].positionX;
+  var b = this.allPieces[imgPiece.id].positionY;
   this.board[this.allPieces[imgPiece.id].positionX][this.allPieces[imgPiece.id].positionY] = null;
   this.allPieces[imgPiece.id].positionX = parseInt(move.classList[0].charAt(14));
   this.allPieces[imgPiece.id].positionY = parseInt(move.classList[0].charAt(16));
@@ -115,10 +144,121 @@ Chess.prototype._movementListeners = function (movement) {
     target.deadPiece();
   }
   this.renderPieces ();
+  if (this.allPieces.kingw.positionX === null) {
+    var alertCheck = alert ("Check Mate, Player Black Wins!");
+    this.checkMate = true;
+    return;
+  }
+  if (this.allPieces.kingb.positionX === null) {
+    var alertCheck2 = alert ("Check Mate, Player White Wins!");
+    this.checkMate = true;
+    return;
+  }
   this.renderBoard ();
   if (this.turn === "white") {
     this.turn = "black";
   } else {
     this.turn = "white";
   }
+  this._Check();
+  this._Check2();
+  if (this.check === true) {
+    this.allPieces[imgPiece.id].positionX = a;
+    this.allPieces[imgPiece.id].positionY = b;
+    this.board = this._copyOfThisPreviousBoard();
+    for(var key in this.allPieces) {
+      var piece = this.allPieces[key];
+      piece.board = this.board;
+    }
+    var alertCheck3 = alert ("You cannot move here or you will lose!");
+    this.check = false;
+    this.renderBoard ();
+    this.renderPieces ();
+    if (this.turn === "white") {
+      this.turn = "black";
+    } else {
+      this.turn = "white";
+    }
+  }
+  this.allPieces[imgPiece.id].promoteIfNeeded();
+  this._Rotate();
 };
+
+Chess.prototype._Check = function () {
+
+  for(var key in this.allPieces) {
+    var piece = this.allPieces[key];
+    if (piece.color === this.turn || piece.positionX === null) {
+      continue;}
+    var positions = piece._possiblePositions ();
+    var kingPosition = [];
+    if (positions.length === 0) {continue;}
+    if (this.turn === "white") {
+        kingPosition = [this.allPieces.kingw.positionX, this.allPieces.kingw.positionY];
+      } else {
+        kingPosition = [this.allPieces.kingb.positionX, this.allPieces.kingb.positionY];
+      }
+    for (var i = 0; i < positions.length; i++) {
+      if (positions[i].toString() === kingPosition.toString()) {
+        var alertCheck = alert ("check");
+        // this.checkMate ();
+      }
+    }
+  }
+};
+
+Chess.prototype._Check2 = function () {
+
+  for(var key in this.allPieces) {
+    var piece = this.allPieces[key];
+    if (piece.color !== this.turn || piece.positionX === null) {
+      continue;}
+    var positions = piece._possiblePositions ();
+    var kingPosition = [];
+    if (positions.length === 0) {continue;}
+    if (this.turn === "white") {
+        kingPosition = [this.allPieces.kingb.positionX, this.allPieces.kingb.positionY];
+      } else {
+        kingPosition = [this.allPieces.kingw.positionX, this.allPieces.kingw.positionY];
+      }
+    for (var i = 0; i < positions.length; i++) {
+      if (positions[i].toString() === kingPosition.toString()) {
+        this.check = true;
+
+      }
+    }
+  }
+
+};
+
+
+Chess.prototype._Rotate = function () {
+  var rotation = this.turn === "white" ? "rotate(0deg)" : "rotate(180deg)";
+  document.getElementById("piece-container").style.transform = rotation;
+
+  $('.piece').each(function(i, el) {
+    el.style.transform = $(el).css('transform') + ' ' + rotation;
+  });
+};
+
+// Chess.prototype._CheckMate = function () {
+//
+//    for(var key in this.allPieces) {
+//      var piece = this.allPieces[key];
+//      if (piece.color === this.turn || piece.positionX === null) {
+//        continue;}
+//        var positions = piece._possiblePositions ();
+//        var kingPosition = [];
+//        if (positions.length === 0) {continue;}
+//        if (this.turn === "white") {
+//            kingPosition = [this.allPieces.kingb.positionX, this.allPieces.kingb.positionY];
+//          } else {
+//            kingPosition = [this.allPieces.kingw.positionX, this.allPieces.kingw.positionY];
+//          }
+//        for (var i = 0; i < positions.length; i++) {
+//          piece._movementListeners (position[i]);
+//            var alertCheck = alert ("You cannot move here or you will lose!");
+//      }
+//    }
+//
+// };

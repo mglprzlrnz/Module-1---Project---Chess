@@ -46,22 +46,45 @@ Pawn.prototype._possiblePositions = function () {
       resultPossiblePositions.push([this.positionX + 2*step, this.positionY]);
     }
   }
-  if (0 <= (this.positionX + step) <= 7) {
+  if ((this.positionX + step) <= 7 && (this.positionX + step) >= 0) {
       if (this.board[this.positionX + step][this.positionY] === null) {
     resultPossiblePositions.push([this.positionX + step, this.positionY]);
     }
   }
-  if (0 <= (this.positionX + step) <= 7 && (this.positionY + 1) <= 7) {
+  if ((this.positionX + step) <= 7 && (this.positionX + step) >= 0 && (this.positionY + 1) <= 7) {
       if (this.board[this.positionX + step][this.positionY + 1] !== null &&
       this.board[this.positionX + step][this.positionY + 1].color !== this.color) {
     resultPossiblePositions.push([this.positionX + step, this.positionY + 1]);
     }
   }
-  if (0 <= (this.positionX + step) <= 7 && (this.positionY - 1) >= 0) {
+  if ((this.positionX + step) <= 7 && (this.positionX + step) >= 0 && (this.positionY - 1) >= 0) {
       if (this.board[this.positionX + step][this.positionY - 1] !== null &&
       this.board[this.positionX + step][this.positionY - 1].color !== this.color) {
     resultPossiblePositions.push([this.positionX + step, this.positionY - 1]);
     }
   }
   return resultPossiblePositions;
+};
+
+Piece.prototype.promoteIfNeeded = function() {
+  if(this.color === 'black' && this.positionX === 7 ||
+     this.color === 'white' && this.positionX === 0) {
+       var queen = new Queen(
+          this.color,
+          this.positionX,
+          this.positionY,
+          'queen',
+          this.board
+        );
+
+        this.board[this.positionX][this.positionY] = queen;
+
+        for(var key in game.allPieces) {
+          if(game.allPieces[key] === this) {
+            game.allPieces[key] = queen;
+          }
+        }
+
+        game.renderPieces();
+  }
 };

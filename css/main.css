@@ -1,4 +1,7 @@
-
+body{
+  padding-top: 40px;
+  padding-left: 40px;
+}
 #chess-board {
   height: 640px;
   width: 640px;
@@ -35,6 +38,20 @@
   background-color: blue;
   opacity: 0.2;
 
+}
+
+.deadwhite{
+  width: 800px;
+  height: 800px;
+  position: fixed;
+  float:left;
+}
+
+.deadblack{
+  width: 800px;
+  height: 800px;
+  position: fixed;
+  float:left;
 }
 
 .tile-position-0-0 { transform: translate(0, 0); }

@@ -11,9 +11,13 @@ function Piece(color, positionX, positionY, image, board, alive) {
   this.alive = true;
 }
 Piece.prototype.deadPiece = function(x,y) {
+  this.positionX = null;
+  this.positionY = null;
   this.alive = false;
+
 };
 
+Piece.prototype.promoteIfNeeded = function() {}
 
 
 
